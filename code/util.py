@@ -1,15 +1,19 @@
 import os
 import yaml
 from importlib.machinery import SourceFileLoader
+import numpy as np
+import numpy.typing as npt
 
 
 class DataStr(str):
     def test(self):
         print(self)
 
-    def to_list(self, new_line: str = " "):
+    def to_list(self, new_line: str = " ") -> list:
         return self.split(new_line)
 
+    def to_array(self, new_line: str = "\n") -> npt.NDArray:
+        return np.array(self.to_list(new_line))
 
 def find_modules(module: object) -> dict:
     names = [_name for _name in dir(module) if not ("__" in _name)]
